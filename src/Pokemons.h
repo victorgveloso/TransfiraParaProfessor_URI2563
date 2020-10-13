@@ -27,9 +27,9 @@ class Pokemons {
             return 0;
         }
         if (cache[biToUni(capacity - pkms[size - 1].weight, size - 1)] == -1) {
-            cache[biToUni(capacity - pkms[size - 1].weight, size - 1)] = calculate(size - 1, capacity - pkms[size - 1].weight) + pkms[size - 1].price;
+            cache[biToUni(capacity - pkms[size - 1].weight, size - 1)] = calculate(size - 1, capacity - pkms[size - 1].weight);
         }
-        int placedPkm = cache[biToUni(capacity - pkms[size - 1].weight, size - 1)];
+        int placedPkm = cache[biToUni(capacity - pkms[size - 1].weight, size - 1)] + pkms[size - 1].price;
         if (cache[biToUni(capacity, size - 1)] == -1) {
             cache[biToUni(capacity, size - 1)] = calculate(size - 1, capacity);
         }
@@ -50,7 +50,7 @@ public:
             pkms[i].price = value[i];
         }
         std::sort(pkms.rbegin(),pkms.rend()); // Descending sorting
-        cache = std::vector<int>((nPokemons + 1) * capacity, -1);
+        cache = std::vector<int>((nPokemons + 1) * (capacity + 1), -1);
     }
     int calculate() {
         return calculate(totalPokemon, maxCapacity);

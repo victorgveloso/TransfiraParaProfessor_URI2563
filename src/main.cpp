@@ -2,16 +2,19 @@
 
 int main() {
     int totalPokemon, maxCapacity;
-    std::cin >> totalPokemon >> maxCapacity;
-    int value[totalPokemon], weight[totalPokemon];
-    for (int i = 0; i < totalPokemon; i++) {
-        std::cin >> value[i];
-    }
-    for (int i = 0; i < totalPokemon; i++) {
-        std::cin >> weight[i];
-    }
+    while (std::cin >> totalPokemon) {
+        std::cin >> maxCapacity;
+        int value[totalPokemon], weight[totalPokemon];
+        for (int i = 0; i < totalPokemon; i++) {
+            std::cin >> value[i];
+        }
+        for (int i = 0; i < totalPokemon; i++) {
+            std::cin >> weight[i];
+        }
 
-    auto p = Pokemons(totalPokemon, maxCapacity, value, weight);
+        std::cout << Pokemons(totalPokemon, maxCapacity, value, weight).calculate() << std::endl;
+
+    }
 
     return 0;
 }
