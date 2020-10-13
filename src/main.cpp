@@ -1,6 +1,7 @@
 #include "Pokemons.h"
 
 int main() {
+    std::ostream::sync_with_stdio(false);
     int totalPokemon, maxCapacity;
     while (std::cin >> totalPokemon) {
         std::cin >> maxCapacity;

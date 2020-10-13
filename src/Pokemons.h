@@ -22,6 +22,9 @@ class Pokemons {
     int totalPokemon, maxCapacity;
     std::vector<Pokemon> pkms;
     std::vector<int> cache;
+    int biToUni(int capacity, int pokemonIdx) const {
+        return (capacity * totalPokemon) + pokemonIdx;
+    }
     int calculate(int size, int capacity) {
         if (size == 0) {
             return 0;
@@ -41,9 +44,6 @@ class Pokemons {
         return cache[biToUni(capacity, size)];
     }
 public:
-    int biToUni(int capacity, int pokemonIdx) const {
-        return (capacity * totalPokemon) + pokemonIdx;
-    }
 
     Pokemons(int nPokemons, int capacity, const int *value, const int *weight) : totalPokemon(nPokemons),
                                                                                  maxCapacity(capacity) {
