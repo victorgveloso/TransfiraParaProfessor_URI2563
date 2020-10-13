@@ -21,13 +21,21 @@ struct Pokemon {
 class Pokemons {
     int totalPokemon, maxCapacity;
     std::vector<Pokemon> pkms;
-    int *cache;
+    std::vector<int> cache;
     int calculate(int size, int capacity) {
         if (size == 0 || pkms[size - 1].weight > capacity) {
             return 0;
         }
-        return std::max(calculate(size - 1,capacity - pkms[size - 1].weight) + pkms[size - 1].price,
-                        calculate(size - 1,capacity));
+        if (cache[biToUni(capacity - pkms[size - 1].weight, size - 1)] == -1) {
+            cache[biToUni(capacity - pkms[size - 1].weight, size - 1)] = calculate(size - 1, capacity - pkms[size - 1].weight) + pkms[size - 1].price;
+        }
+        int placedPkm = cache[biToUni(capacity - pkms[size - 1].weight, size - 1)];
+        if (cache[biToUni(capacity, size - 1)] == -1) {
+            cache[biToUni(capacity, size - 1)] = calculate(size - 1, capacity);
+        }
+        int unplacedPkm = calculate(size - 1, capacity);
+        cache[biToUni(capacity, size)] = std::max(placedPkm, unplacedPkm);
+        return cache[biToUni(capacity, size)];
     }
 public:
     int biToUni(int capacity, int pokemonIdx) const {
@@ -42,7 +50,7 @@ public:
             pkms[i].price = value[i];
         }
         std::sort(pkms.rbegin(),pkms.rend()); // Descending sorting
-        cache = new int[nPokemons * capacity];
+        cache = std::vector<int>((nPokemons + 1) * capacity, -1);
     }
     int calculate() {
         return calculate(totalPokemon, maxCapacity);
