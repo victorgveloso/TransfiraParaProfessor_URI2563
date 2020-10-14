@@ -25,3 +25,10 @@ TEST(uDebugSecond, SecondExample) {
     auto p = Pokemons(77, 4437, value, weight);
     ASSERT_EQ(p.calculate(), 14808);
 }
+
+TEST(uDebugFirst, ForthExample) {
+    int value[] = {57,54,76};
+    int weight[] = {74,81,12};
+    auto p = Pokemons(3, 135, value, weight);
+    ASSERT_EQ(p.calculate(), 133);
+}
